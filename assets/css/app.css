@@ -1,0 +1,134 @@
+/* Taller ERP - Main Styles */
+:root {
+    --sidebar-width: 260px;
+    --sidebar-bg: #1a1a2e;
+    --sidebar-hover: #16213e;
+    --sidebar-active: #e53e3e;
+    --topbar-height: 60px;
+    --primary: #e53e3e;
+    --primary-dark: #c53030;
+}
+
+* { box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f0f2f5; margin: 0; min-height: 100vh; }
+
+/* Sidebar */
+.sidebar {
+    position: fixed; top: 0; left: 0; width: var(--sidebar-width); height: 100vh;
+    background: var(--sidebar-bg); color: #fff; z-index: 1040;
+    display: flex; flex-direction: column; transition: transform 0.3s ease;
+    overflow-y: auto;
+}
+.sidebar-header {
+    padding: 1.25rem 1rem; display: flex; align-items: center; gap: 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.sidebar-logo {
+    width: 40px; height: 40px; background: linear-gradient(135deg, #e53e3e, #dd6b20);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.sidebar-logo i { font-size: 1.3rem; color: #fff; }
+.sidebar-title { font-weight: 700; font-size: 1.1rem; white-space: nowrap; }
+.btn-close-sidebar { background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; margin-left: auto; }
+
+.sidebar-nav { padding: 0.5rem 0; flex: 1; }
+.sidebar-nav .nav { padding: 0; }
+.sidebar-nav .nav-header {
+    padding: 1rem 1.25rem 0.4rem; font-size: 0.7rem; font-weight: 700;
+    text-transform: uppercase; color: rgba(255,255,255,0.4); letter-spacing: 1px;
+}
+.sidebar-nav .nav-link {
+    color: rgba(255,255,255,0.7); padding: 0.6rem 1.25rem; display: flex; align-items: center;
+    gap: 0.75rem; font-size: 0.9rem; transition: all 0.2s; border-left: 3px solid transparent;
+    text-decoration: none;
+}
+.sidebar-nav .nav-link:hover { color: #fff; background: var(--sidebar-hover); }
+.sidebar-nav .nav-link.active { color: #fff; background: var(--sidebar-hover); border-left-color: var(--sidebar-active); }
+.sidebar-nav .nav-link i { font-size: 1.1rem; width: 20px; text-align: center; }
+
+.sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1035; }
+
+/* Main content */
+.main-content { margin-left: var(--sidebar-width); min-height: 100vh; transition: margin 0.3s; }
+
+/* Topbar */
+.topbar {
+    height: var(--topbar-height); background: #fff; border-bottom: 1px solid #e5e7eb;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem;
+    position: sticky; top: 0; z-index: 1020;
+}
+
+/* Content */
+.content-body { padding: 1.5rem; }
+
+/* Cards */
+.stat-card { border: none; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: transform 0.2s; }
+.stat-card:hover { transform: translateY(-2px); }
+.stat-card .stat-icon {
+    width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center;
+    justify-content: center; font-size: 1.4rem;
+}
+
+/* Tables */
+.table-card { border: none; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.table-card .card-header { background: #fff; border-bottom: 1px solid #e5e7eb; border-radius: 12px 12px 0 0 !important; padding: 1rem 1.25rem; }
+.table thead th { background: #f8f9fa; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; color: #6b7280; letter-spacing: 0.5px; border-bottom: 2px solid #e5e7eb; }
+.table td { vertical-align: middle; font-size: 0.9rem; }
+.table-hover tbody tr:hover { background: #f0f7ff; }
+
+/* Buttons */
+.btn-primary { background: var(--primary); border-color: var(--primary); }
+.btn-primary:hover { background: var(--primary-dark); border-color: var(--primary-dark); }
+.btn-action { padding: 0.3rem 0.5rem; font-size: 0.8rem; }
+
+/* Form styling */
+.form-card { border: none; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.form-card .card-header { background: #fff; border-bottom: 1px solid #e5e7eb; border-radius: 12px 12px 0 0 !important; }
+
+/* Badges */
+.badge { font-weight: 500; padding: 0.35em 0.65em; }
+
+/* Document detail lines */
+.linea-row td { padding: 0.4rem 0.5rem !important; }
+.linea-row input, .linea-row select { font-size: 0.85rem; }
+.linea-row .form-control-sm { padding: 0.25rem 0.5rem; }
+
+/* Photos grid */
+.foto-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.75rem; }
+.foto-item { position: relative; border-radius: 8px; overflow: hidden; aspect-ratio: 1; }
+.foto-item img { width: 100%; height: 100%; object-fit: cover; }
+.foto-item .foto-delete {
+    position: absolute; top: 4px; right: 4px; background: rgba(220,38,38,0.9);
+    border: none; color: #fff; width: 24px; height: 24px; border-radius: 50%;
+    font-size: 0.75rem; display: none; cursor: pointer; align-items: center; justify-content: center;
+}
+.foto-item:hover .foto-delete { display: flex; }
+
+/* Signature pad */
+.signature-pad { border: 2px dashed #d1d5db; border-radius: 8px; background: #fff; }
+.signature-pad canvas { width: 100%; height: 200px; }
+
+/* Print styles */
+@media print {
+    .sidebar, .topbar, .no-print { display: none !important; }
+    .main-content { margin-left: 0 !important; }
+    .content-body { padding: 0 !important; }
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.show { transform: translateX(0); }
+    .sidebar-overlay.show { display: block; }
+    .main-content { margin-left: 0; }
+}
+
+/* Status colors for calendar */
+.fc-event-pending { background-color: #f59e0b !important; border-color: #f59e0b !important; }
+.fc-event-confirmada { background-color: #3b82f6 !important; border-color: #3b82f6 !important; }
+.fc-event-en_curso { background-color: #8b5cf6 !important; border-color: #8b5cf6 !important; }
+.fc-event-completada { background-color: #10b981 !important; border-color: #10b981 !important; }
+.fc-event-cancelada { background-color: #ef4444 !important; border-color: #ef4444 !important; }
+
+/* Select2 fixes */
+.select2-container--bootstrap-5 .select2-selection { min-height: 38px; }
