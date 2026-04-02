@@ -2,7 +2,7 @@
 <div class="row g-3 mb-4">
     <?php
     $icons = ['citas'=>'calendar-check','depositos'=>'inbox','presupuestos'=>'calculator','albaranes'=>'clipboard-check','facturas'=>'receipt','ordenes'=>'file-text','proyectos'=>'kanban'];
-    $colors = ['citas'=>'info','depositos'=>'warning','presupuestos'=>'primary','albaranes'=>'success','facturas'=>'danger','ordenes'=>'secondary','proyectos'=>'dark'];
+    $colors = ['citas'=>'info','depositos'=>'warning','presupuestos'=>'primary','albaranes'=>'success','facturas'=>'danger','ordenes'=>'secondary','proyectos'=>'info'];
     foreach ($docCounts as $key => $count): ?>
     <div class="col-6 col-lg">
         <div class="card stat-card text-center py-3">
@@ -62,6 +62,16 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Dark theme defaults for Chart.js
+    Chart.defaults.color = '#9ca3af';
+    Chart.defaults.borderColor = '#2d3139';
+    Chart.defaults.plugins.legend.labels.color = '#9ca3af';
+
+    var darkScales = {
+        x: { ticks: { color: '#9ca3af' }, grid: { color: '#2d3139' } },
+        y: { ticks: { color: '#9ca3af' }, grid: { color: '#2d3139' } }
+    };
+
     // Revenue chart
     var revData = <?= json_encode($facturacionMes) ?>;
     new Chart(document.getElementById('revenueChart'), {
@@ -71,24 +81,25 @@ document.addEventListener('DOMContentLoaded', function() {
             datasets: [{
                 label: 'Facturacion (EUR)',
                 data: revData.map(r => parseFloat(r.total)),
-                backgroundColor: 'rgba(229, 62, 62, 0.7)',
-                borderColor: '#e53e3e',
-                borderWidth: 1
+                backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                borderColor: '#3b82f6',
+                borderWidth: 1,
+                borderRadius: 4
             }]
         },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+        options: { responsive: true, maintainAspectRatio: false, scales: darkScales, plugins: { legend: { display: false } } }
     });
 
     // Status chart
     var statusData = <?= json_encode($facturaEstados) ?>;
-    var statusColors = { borrador: '#6b7280', enviada: '#3b82f6', pagada: '#10b981', vencida: '#ef4444', anulada: '#1f2937' };
+    var statusColors = { borrador: '#6b7280', enviada: '#3b82f6', pagada: '#10b981', vencida: '#ef4444', anulada: '#374151', pendiente: '#f59e0b', cobrada: '#10b981' };
     new Chart(document.getElementById('statusChart'), {
         type: 'doughnut',
         data: {
             labels: statusData.map(s => s.estado.charAt(0).toUpperCase() + s.estado.slice(1)),
-            datasets: [{ data: statusData.map(s => s.total), backgroundColor: statusData.map(s => statusColors[s.estado] || '#6b7280') }]
+            datasets: [{ data: statusData.map(s => s.total), backgroundColor: statusData.map(s => statusColors[s.estado] || '#6b7280'), borderColor: '#22262b', borderWidth: 2 }]
         },
-        options: { responsive: true, maintainAspectRatio: false }
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#9ca3af' } } } }
     });
 
     // Brands chart
@@ -97,9 +108,9 @@ document.addEventListener('DOMContentLoaded', function() {
         type: 'bar',
         data: {
             labels: brandsData.map(b => b.marca),
-            datasets: [{ label: 'Vehiculos', data: brandsData.map(b => b.total), backgroundColor: 'rgba(59, 130, 246, 0.7)' }]
+            datasets: [{ label: 'Vehiculos', data: brandsData.map(b => b.total), backgroundColor: 'rgba(99, 102, 241, 0.6)', borderColor: '#6366f1', borderWidth: 1, borderRadius: 4 }]
         },
-        options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } } }
+        options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', scales: darkScales, plugins: { legend: { display: false } } }
     });
 });
 </script>
